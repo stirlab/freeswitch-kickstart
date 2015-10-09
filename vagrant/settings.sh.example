@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Example custom settings file. Copy this to settings.sh in the same directory
+# to customize any of the listed installation variables. Default values are
+# shown in the commented out lines.
+
+# Directory where the Vagrantfile and development deployment scripts live. It
+# will be auto-configured by the deployment script, and is included here only
+# for reference.
+#VAGRANT_CONFIG_DIR=
+
+# Install path for the virtual machine. Make sure that the user executing the
+# installation script has permissions to create this directory.
+#VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-dev"
+
+# Full path to the Git checkout of the FreeSWITCH repository on the host.
+# If the directory does not already exist, then Git will be used to clone the
+# repository to this directory, using the URL and branch configured below.
+#FREESWITCH_GIT_DIR="${HOME}/git/freeswitch"
+
+# The Git URL to use when checking out the FreeSWITCH repository.
+#FREESWITCH_GIT_URL="https://freeswitch.org/stash/scm/fs/freeswitch.git"
+
+# The Git branch to use when checking out the FreeSWITCH repository.
+#FREESWITCH_GIT_BRANCH="master"
+
+# Box name to use for the Vagrantfile, config.vm.box setting.
+#VAGRANT_VM_BOX="bento/debian-8.2"
+
+# Directory where the salt and pillar file roots are located. This is auto
+# configured by the deployement script, so unless you're doing something
+# custom, it's advised not to edit it.
+#SALT_DIR="`dirname $VAGRANT_CONFIG_DIR`/salt"
+
+# The port on the host to use for connecting to the VM's SSH daemon.
+#SSH_PORT="2222"
+
+# The label for the entry to be placed in .ssh/config.
+#SSH_CONFIG_LABEL="freeswitch-dev"
+
+# The minion ID to be used in /etc/salt/minion.
+#SALT_MINION_ID="dev.freeswitch.local"
+
+# If this is set to yes, then the vagrant-hostsupdater will be installed to
+# automatically manage adding/removing entries from /etc/hosts for the VM.
+# Note that write access to /etc/hosts is needed by the plugin, which uses
+# sudo to get the necessary permissions.
+#AUTOMATICALLY_MANAGE_HOST_ENTRIES="yes"
+
+# I've seen instances where the files need a bit of time to sync to shared
+# folders on the host. Setting this to 'yes' allows 60 seconds for that before
+# the reboot after the salt provisioning.
+#ALLOW_VM_FILE_SYNC_TIME="yes"

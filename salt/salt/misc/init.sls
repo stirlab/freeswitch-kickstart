@@ -1,0 +1,3 @@
+include:
+  - .hosts
+  - .timezone

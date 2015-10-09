@@ -1,0 +1,8 @@
+cd {{ freeswitch_git_checkout }}/html5/verto/verto_communicator
+
+rm -rf bower_components/ node_modules/
+
+salt-call state.sls service.freeswitch.verto-communicator
+
+# vi: ft=sh
+

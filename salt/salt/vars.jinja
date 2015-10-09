@@ -1,0 +1,40 @@
+# This file contains all variables that are referenced in other SLS files
+# which may be customized.
+#
+# NOTE: Do not customize the variables here! Do so in an appropriate pillar
+# or grain file, see Salt documentation for details: http://docs.saltstack.com
+
+# Private variables.
+{% set _default_https_port = '443' %}
+
+# Server environment.
+{% set server_env = salt['grains.get']('server:env', 'development') -%}
+{% set server_type = salt['grains.get']('server:type', '') -%}
+{% set server_timezone = salt['pillar.get']('server:timezone', 'Etc/UTC') -%}
+{% set server_encryption_password = salt['pillar.get']('software:server:encryption_password', 'ClueCon') -%}
+
+# Network.
+# The server ID, set by the salt minion config file - must be edited there.
+{% set server_id = grains['id'] -%}
+
+# SSH.
+# Port to run the SSH daemon on.
+{% set sshd_port = salt['pillar.get']('service:sshd:port', 22) -%}
+# SSH pubkeys to insert for the root user. See pillar/server/ examples.
+{% set ssh_pubkeys_root = salt['pillar.get']('ssh:pubkeys:root', {}) -%}
+
+# Network.
+{% set host_entries = salt['pillar.get']('server:network:host_entries', []) -%}
+
+#FreeSWITCH.
+# NOTE: If you edit any of the freeswitch_git_* settings, the values
+# in settings.sh and the setup Vagrantfile should also be edited to match.
+{% set freeswitch_git_url = salt['pillar.get']('software:freeswitch:git:url', 'https://freeswitch.org/stash/scm/fs/freeswitch.git') -%}
+{% set freeswitch_git_revision = salt['pillar.get']('software:freeswitch:git:revision', 'master') -%}
+{% set freeswitch_git_checkout = salt['pillar.get']('software:freeswitch:git:checkout', '/usr/local/src/freeswitch.git') -%}
+{% set freeswitch_ws_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:ws', '5066') -%}
+{% set freeswitch_wss_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:wss', '7443') -%}
+{% set eth_num = server_env == 'development' and 'eth1' or 'eth0' %}
+{% set freeswitch_ip = salt['pillar.get']('service:freeswitch:ip', salt['network.interfaces']()[eth_num]['inet'][0]['address']) -%}
+{% set freeswitch_default_password = salt['pillar.get']('software:freeswitch:default_password', '9999') -%}
+

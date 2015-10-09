@@ -1,0 +1,4 @@
+{% set cli_debug = server_env != 'production' and '-l debug' or '' %}
+# Envelope is '{{ server_env }}'.
+# Debug setting is '{{ cli_debug }}'.
+service freeswitch start && fs_cli {{ cli_debug }} localhost "$@"

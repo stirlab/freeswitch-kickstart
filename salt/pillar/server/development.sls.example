@@ -1,0 +1,8 @@
+# Example pillar file for a build of a local development server.
+#
+# Only required settings are listed here, the rest use the default values found
+# in salt/salt/vars.jinja, and can be overridden here.
+#
+# For more details on how to write pillar files, see:
+# http://docs.saltstack.com/en/latest/topics/pillar
+

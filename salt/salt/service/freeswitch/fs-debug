@@ -1,0 +1,1 @@
+service freeswitch stop && cd /usr/local/freeswitch/log && /usr/local/freeswitch/bin/freeswitch -c -u freeswitch -g freeswitch -nonat -core

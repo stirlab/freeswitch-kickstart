@@ -1,0 +1,99 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure(2) do |config|
+  # All Vagrant configuration is done here. The most common configuration
+  # options are documented and commented below. For a complete reference,
+  # please see the online documentation at vagrantup.com.
+
+  # Every Vagrant virtual environment requires a box to build off of.
+  config.vm.box = "###VAGRANT_VM_BOX###"
+  config.vm.box_check_update = true
+
+  # In case the vagrant-vbguest plugin is installed, the auto-update can be
+  # enabled after initial boot.
+  config.vbguest && config.vbguest.auto_update = false
+
+  # Share SSH locally by default
+  config.vm.network :forwarded_port,
+    guest: 22,
+    host: ###SSH_PORT###,
+    id: "ssh"
+
+  # This smoothes out DNS issues with the VM.
+  config.vm.provider "virtualbox" do |v|
+      v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+  end
+
+  # Create a forwarded port mapping which allows access to a specific port
+  # within the machine from a port on the host machine. In the example below,
+  # accessing "localhost:8080" will access port 80 on the guest machine.
+  config.vm.network "forwarded_port", guest: 9001, host: 9001
+
+  # Create a private network, which allows host-only access to the machine
+  # using a specific IP.
+  config.vm.network "private_network", ip: "192.168.37.11"
+  config.hostsupdater.aliases = ["###SALT_MINION_ID###"]
+
+  # Share an additional folder to the guest VM. The first argument is
+  # the path on the host to the actual folder. The second argument is
+  # the path on the guest to mount the folder. And the optional third
+  # argument is a set of non-required options.
+  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "###SALT_DIR###/", "/srv/salt/", owner: "root", group: "root"
+  config.vm.synced_folder "###FREESWITCH_GIT_DIR###/", "/usr/local/src/freeswitch.git/", owner: "root", group: "root"
+
+  # TODO: Remove this?
+  # This is in here because something is clogging up the regular DNS.
+  #config.vm.provision :shell, run: "always" do |s|
+  #  s.inline = "echo options single-request-reopen | sudo tee /etc/resolv.conf; echo nameserver 8.8.8.8 | sudo tee -a /etc/resolv.conf"
+  #end
+
+  # TODO: Remove this when https://github.com/mitchellh/vagrant/issues/5973 is fixed.
+  #config.vm.provision "shell", inline: "sudo mkdir -p /etc/salt && sudo cp /vagrant/salt/minion /etc/salt/"
+
+  # This is a hack to load an SSH pubkey to the server if a valid one is found
+  # on the host. Looks in the default location for RSA/DSA pubkeys.
+  # NOTE: Should probably be rewritten as a vagrant plugin in the future.
+  config.vm.provision "shell" do |s|
+    ssh_dir = "#{Dir.home}/.ssh"
+    ssh_pub_key_file = ""
+    if File.readable?("#{ssh_dir}/id_rsa.pub") then
+      ssh_pub_key_file = "#{ssh_dir}/id_rsa.pub"
+    elsif File.readable?("#{ssh_dir}/id_dsa.pub") then
+      ssh_pub_key_file = "#{ssh_dir}/id_dsa.pub"
+    end
+    if not ssh_pub_key_file.empty? then
+      ssh_pub_key = File.readlines(ssh_pub_key_file).first.strip
+      s.inline = <<-SHELL
+        echo "Adding #{ssh_pub_key_file} to root and vagrant users authorized_keys file."
+        echo "#{ssh_pub_key}" >> /home/vagrant/.ssh/authorized_keys
+        sudo mkdir -p /root/.ssh
+        sudo chown root:root /root/.ssh
+        sudo chmod 700 /root/.ssh
+        echo "#{ssh_pub_key}" | sudo tee -a /root/.ssh/authorized_keys
+      SHELL
+    else
+      s.inline = <<-SHELL
+        echo "No SSH pubkey found, for direct SSH access, one will need to be added to the VM."
+      SHELL
+    end
+  end
+
+  config.vm.provision :salt do |salt|
+    salt.install_master = false
+    salt.install_type = "git"
+    salt.install_args = "v2014.7.6"
+    # TODO: Remove this when https://github.com/mitchellh/vagrant/issues/5973 is fixed.
+    salt.bootstrap_options = '-F -c /tmp/ -P'
+    salt.minion_config = "salt/minion"
+    # Uncomment these when a remote salt master is active.
+    # salt.minion_key = "salt/key/minion.pem"
+    # salt.minion_pub = "salt/key/minion.pub"
+    salt.log_level = "info"
+    salt.verbose = true
+    salt.colorize = true
+    salt.run_highstate = true
+  end
+end
+

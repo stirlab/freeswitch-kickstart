@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Rebuild FreeSWITCH/Verto Communicator after source code updates.
+service freeswitch stop
+
+rm -rf /usr/local/freeswitch
+
+/usr/bin/salt-call state.sls service.freeswitch
+
+# vi: ft=sh
+

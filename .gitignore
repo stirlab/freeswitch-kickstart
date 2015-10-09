@@ -1,0 +1,11 @@
+*.DS_Store
+*~
+*.swp
+*.swo
+
+# Custom Vagrant settings.
+vagrant/settings.sh
+
+# Custom pillar configuration.
+salt/pillar/server/development.sls
+
