@@ -1,5 +1,5 @@
 # Overview
-Vagrant/Salt configuration for automatically deploying an [FreeSWTICH](https://freeswitch.org) development server.
+Vagrant/Salt configuration for automatically deploying a [FreeSWTICH](https://freeswitch.org) development server.
 
 ## Installation
 
