@@ -10,10 +10,12 @@ base-packages:
       - htop
       - logwatch
       - lynx
-      - man
+      - man-db
       - mutt
       - patch
       - patchutils
+      # Needed for pkgrepo Salt state.
+      - python-apt
       - tcpdump
       - telnet
       - tmux
