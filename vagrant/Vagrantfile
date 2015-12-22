@@ -49,9 +49,6 @@ Vagrant.configure(2) do |config|
   #  s.inline = "echo options single-request-reopen | sudo tee /etc/resolv.conf; echo nameserver 8.8.8.8 | sudo tee -a /etc/resolv.conf"
   #end
 
-  # TODO: Remove this when https://github.com/mitchellh/vagrant/issues/5973 is fixed.
-  #config.vm.provision "shell", inline: "sudo mkdir -p /etc/salt && sudo cp /vagrant/salt/minion /etc/salt/"
-
   # This is a hack to load an SSH pubkey to the server if a valid one is found
   # on the host. Looks in the default location for RSA/DSA pubkeys.
   # NOTE: Should probably be rewritten as a vagrant plugin in the future.
@@ -83,9 +80,7 @@ Vagrant.configure(2) do |config|
   config.vm.provision :salt do |salt|
     salt.install_master = false
     salt.install_type = "git"
-    salt.install_args = "v2014.7.6"
-    # TODO: Remove this when https://github.com/mitchellh/vagrant/issues/5973 is fixed.
-    salt.bootstrap_options = '-F -c /tmp/ -P'
+    salt.install_args = "v2015.8.3"
     salt.minion_config = "salt/minion"
     # Uncomment these when a remote salt master is active.
     # salt.minion_key = "salt/key/minion.pem"
