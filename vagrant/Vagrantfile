@@ -6,6 +6,11 @@ Vagrant.configure(2) do |config|
   # options are documented and commented below. For a complete reference,
   # please see the online documentation at vagrantup.com.
 
+  # FreeSWITCH needs a bit more RAM than the default VM provides.
+  config.vm.provider "virtualbox" do |v|
+    v.memory = 1024
+  end
+
   # Every Vagrant virtual environment requires a box to build off of.
   config.vm.box = "###VAGRANT_VM_BOX###"
   config.vm.box_check_update = true
