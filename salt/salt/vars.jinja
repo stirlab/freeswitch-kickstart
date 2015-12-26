@@ -31,7 +31,7 @@
 # in settings.sh and the setup Vagrantfile should also be edited to match.
 {% set freeswitch_git_url = salt['pillar.get']('software:freeswitch:git:url', 'https://freeswitch.org/stash/scm/fs/freeswitch.git') -%}
 {% set freeswitch_git_revision = salt['pillar.get']('software:freeswitch:git:revision', 'master') -%}
-{% set freeswitch_git_checkout = salt['pillar.get']('software:freeswitch:git:checkout', '/usr/local/src/freeswitch.git') -%}
+{% set freeswitch_git_checkout = salt['pillar.get']('software:freeswitch:git:checkout', '/usr/local/src/freeswitch') -%}
 {% set freeswitch_ws_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:ws', '5066') -%}
 {% set freeswitch_wss_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:wss', '7443') -%}
 {% set eth_num = server_env == 'development' and 'eth1' or 'eth0' %}
