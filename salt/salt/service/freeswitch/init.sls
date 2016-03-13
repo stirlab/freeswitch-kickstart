@@ -41,7 +41,12 @@ freeswitch-repo-deps-setenv:
 
 freeswitch-video-deps-package:
   pkg.installed:
-    - name: freeswitch-video-deps-most
+    - pkgs:
+      # These packages are not included with the video-deps meta package,
+      # and are required to build mod_av.
+      - libyuv-dev
+      - libvpx2-dev
+      - freeswitch-video-deps-most
     - refresh: True
     - require:
       - environ: freeswitch-repo-deps-setenv
