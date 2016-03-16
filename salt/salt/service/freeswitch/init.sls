@@ -12,6 +12,7 @@ with context %}
 
 include:
   - repo.freeswitch
+  - repo.freeswitch-debian-unstable
   - service.httpd
 
 freeswitch-group:
@@ -29,40 +30,10 @@ freeswitch-user:
     - require:
       - group: freeswitch-group
 
-freeswitch-repo-deps-setenv:
-  environ.setenv:
-    - value:
-        DEBIAN_FRONTEND: none
-        APT_LISTCHANGES_FRONTEND: none
-    - update_minion: True
-    # Not the cleanest test, but it prevents the state from unnecessarily
-    # re-executing.
-    - unless: test -d /usr/share/doc/freeswitch-video-deps-most
-
 freeswitch-video-deps-package:
   pkg.installed:
-    - pkgs:
-      # These packages are not included with the video-deps meta package,
-      # and are required to build mod_av.
-      - libyuv-dev
-      - libvpx2-dev
-      - freeswitch-video-deps-most
+    - name: freeswitch-video-deps-most
     - refresh: True
-    - require:
-      - environ: freeswitch-repo-deps-setenv
-
-freeswitch-repo-deps-rmenv:
-  environ.setenv:
-    - false_unsets: True
-    - value:
-        DEBIAN_FRONTEND: False
-        APT_LISTCHANGES_FRONTEND: False
-    - update_minion: True
-    - require:
-      - pkg: freeswitch-video-deps-package
-    # Not the cleanest test, but it prevents the state from unnecessarily
-    # re-executing.
-    - unless: test -d /usr/share/doc/freeswitch-video-deps-most
 
 freeswitch-build:
   cmd.script:
