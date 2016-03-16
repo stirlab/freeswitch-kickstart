@@ -2,7 +2,7 @@
 
 ### Vagrant development servers.
  1. Install an SSH keypair on the host machine if one doesn't exist already.
- 1. Install [Git](http://git-scm.com), [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org). OS X [Homebrew](http://brew.sh) users, consider easy installation via [Homebrew Cask](http://caskroom.io). *NOTE:* VirtualBox 5.x appears to have some issues creating symlinks. Until this issue is resolved, recommend to install the latest 4.3.x version (Homebrew Cask users can use [homebrew-cask-versions](https://github.com/caskroom/homebrew-versions)).
+ 1. Install [Git](http://git-scm.com), [Vagrant](https://www.vagrantup.com) and [VirtualBox](https://www.virtualbox.org). OS X [Homebrew](http://brew.sh) users, consider easy installation via [Homebrew Cask](http://caskroom.io).
  1. Run the following command to checkout this project: ```git clone https://github.com/thehunmonkgroup/freeswitch-vagrant-dev.git```
  1. From the command line, change to the <code>vagrant</code> directory, and you'll find <code>settings.sh.example</code>. Copy that file in the same directory to <code>settings.sh</code>.
  1. Edit to taste, the default values (which are the commented out values in the example config) will most likely work just fine.
@@ -12,6 +12,7 @@
  1. If the setup script finds an SSH pubkey in the default location of the host's HOME directory, it will automatically install that pubkey to the VM. The end of the script outputs optional configuration you can add to your .ssh/config file, to enable easy root SSH access to the server.
  1. SSH into the VM, and run ```start-conference.sh```
  1. Visit <code>https://[server URL]:9001</code> in your browser, and you should see the main page for FreeSWTICH's Verto Communicator.
+ 1. Configure the login credentials appropriately and try out a video call! *(default password is 9999, and default host is dev.freeswitch.local)*
  1. The installed virtual machine can be controlled like any other Vagrant VM. See [this Vagrant cheat sheet](http://notes.jerzygangi.com/vagrant-cheat-sheet) for more details.
  1. If for any reason the installation fails, or you just want to completely remove the installed virtual machine, run the <code>vagrant/kill-development-environment.sh</code> script from the command line.
 
@@ -42,7 +43,9 @@ Note that the FreeSWITCH SSL files are constructed on the server automatically f
 
 ### Working with the FreeSWITCH checkout
 
-The setup script clones a git repository for FreeSWITCH to the host machine, in the directory specified by the <code>FREESWITCH_GIT_DIR</code> setting in settings.sh (<code>${HOME}/git/freeswitch</code> by default). This directory is sync'd with the VM, which allows editing files directly from the checkout. The following directories will probably be of the most interest:
+The setup script clones a git repository for FreeSWITCH to the host machine, in the directory specified by the <code>FREESWITCH_GIT_DIR</code> setting in settings.sh (<code>${HOME}/git/freeswitch</code> by default). This directory is sync'd with the VM, which allows editing files directly from the checkout. Once the initial setup of the source code repository is done, you have full control over what branch/tag/commit to rebuild FreeSWITCH from *(default is to build from latest master)*.
+
+The following directories will probably be of the most interest:
  * <code>html5/verto/verto_communicator/src</code>: The source code for Verto Communicator.
 
 ### Working with the VM
