@@ -6,10 +6,12 @@ base-packages:
       - aptitude
       - bash-completion
       - colordiff
+      - dbus
       - file
       - htop
       - logwatch
       - lynx
+      - libpam-systemd
       - man-db
       - mutt
       - patch
