@@ -7,13 +7,20 @@
   server_encryption_password,
   server_env,
   server_id,
+  server_ssl_cert,
+  server_ssl_chain,
+  server_ssl_key,
   server_type
 with context %}
 
 include:
   - repo.freeswitch
   - repo.freeswitch-debian-unstable
-  - service.httpd
+
+# Set up the dependency line for the Git checkout. This is necessary because on
+# Vagrant installs the checkout is an existing linked folder on the VM.
+{% set git_checkout_dependency = server_type == 'vagrant' and ('file: ' + freeswitch_git_checkout) or 'git: freeswitch-git-checkout' -%}
+# git_checkout_dependency is {{ git_checkout_dependency }}
 
 freeswitch-group:
   group.present:
@@ -35,6 +42,26 @@ freeswitch-video-deps-package:
     - name: freeswitch-video-deps-most
     - refresh: True
 
+{{ freeswitch_git_checkout }}:
+  file.directory:
+    - user: root
+    - group: root
+    - dir_mode: 755
+    - require:
+      - pkg: freeswitch-video-deps-package
+
+{% if server_type != 'vagrant' -%}
+freeswitch-git-checkout:
+  git.latest:
+    - name: {{ freeswitch_git_url }}
+    - rev: {{ freeswitch_git_revision }}
+    - target: {{ freeswitch_git_checkout }}
+    # Necessary to clear any patches out before updating the repository.
+    - force_checkout : True
+    - require:
+      - pkg: freeswitch-video-deps-package
+{% endif -%}
+
 freeswitch-build:
   cmd.script:
     - source: salt://service/freeswitch/build.sh
@@ -43,8 +70,13 @@ freeswitch-build:
     - require:
       - group: freeswitch-group
       - user: freeswitch-user
-      - pkg: freeswitch-video-deps-package
+{% if server_type == 'vagrant' %}
+      -  {{ git_checkout_dependency }}
     - unless: test -d /usr/local/freeswitch
+{% else %}
+    - onchanges:
+      - {{ git_checkout_dependency }}
+{% endif -%}
 
 /usr/local/freeswitch/certs:
   file.directory:
@@ -54,8 +86,10 @@ freeswitch-build:
     - require:
       - cmd: freeswitch-build
 
-/usr/local/freeswitch/certs/agent.pem:
+# Alternate state name required to avoid 'Recursive requisite found' error.
+Add /usr/local/freeswitch/certs/agent.pem:
   file.managed:
+    - name: /usr/local/freeswitch/certs/agent.pem
     - user: root
     - group: freeswitch
     - mode: 640
@@ -67,15 +101,15 @@ build-agent.pem:
   file.append:
     - name: /usr/local/freeswitch/certs/agent.pem
     - sources:
-      - salt://etc/ssl/cert.pem
-      - salt://etc/ssl/key.pem
+      - salt://etc/ssl/{{ server_ssl_cert }}
+      - salt://etc/ssl/{{ server_ssl_key }}
     - require:
-      - file: /usr/local/freeswitch/certs
-      - file: /etc/ssl/certs/cert.pem
-      - file: /etc/ssl/private/key.pem
+      - file: Add /usr/local/freeswitch/certs/agent.pem
 
-/usr/local/freeswitch/certs/wss.pem:
+# Alternate state name required to avoid 'Recursive requisite found' error.
+Add /usr/local/freeswitch/certs/wss.pem:
   file.managed:
+    - name: /usr/local/freeswitch/certs/wss.pem
     - user: root
     - group: freeswitch
     - mode: 640
@@ -87,18 +121,15 @@ build-wss.pem:
   file.append:
     - name: /usr/local/freeswitch/certs/wss.pem
     - sources:
-      - salt://etc/ssl/cert.pem
-      - salt://etc/ssl/key.pem
-      - salt://etc/ssl/chain.pem
+      - salt://etc/ssl/{{ server_ssl_cert }}
+      - salt://etc/ssl/{{ server_ssl_key }}
+      - salt://etc/ssl/{{ server_ssl_chain }}
     - require:
-      - file: /usr/local/freeswitch/certs
-      - file: /etc/ssl/certs/cert.pem
-      - file: /etc/ssl/private/key.pem
-      - file: /etc/ssl/certs/chain.pem
+      - file: Add /usr/local/freeswitch/certs/wss.pem
 
 /usr/local/freeswitch/certs/cafile.pem:
   file.managed:
-    - source: salt://etc/ssl/chain.pem
+    - source: salt://etc/ssl/{{ server_ssl_chain }}
     - user: root
     - group: freeswitch
     - mode: 640
@@ -175,7 +206,7 @@ build-wss.pem:
     - source: salt://service/freeswitch/conf/custom_vars_post.xml.jinja
     - template: jinja
     - context:
-      freeswitch_ip: {{ freeswitch_ip }}
+      freeswitch_default_password: {{ freeswitch_default_password }}
     - user: root
     - group: root
     - mode: 644
@@ -269,6 +300,7 @@ freeswitch-service:
     - group: root
     - mode: 755
 
+{% if server_env != 'production' -%}
 /usr/local/bin/fs-debug:
   file.managed:
     - source: salt://service/freeswitch/fs-debug
@@ -287,6 +319,7 @@ freeswitch-service:
     - mode: 755
     - require:
       - cmd: freeswitch-build
+{% endif -%}
 
 extend:
   freeswitch-repo:

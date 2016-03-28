@@ -6,7 +6,7 @@ include:
 
 verto-demo-symlink-html:
   file.symlink:
-    - name: /var/www/html/demo
+    - name: /var/www/html/verto-demo
     - target: {{ freeswitch_git_checkout }}/html5/verto/demo
     - require:
       - cmd: freeswitch-build
@@ -14,7 +14,7 @@ verto-demo-symlink-html:
 
 verto-video-demo-symlink-html:
   file.symlink:
-    - name: /var/www/html/verto
+    - name: /var/www/html/verto-video-demo
     - target: {{ freeswitch_git_checkout }}/html5/verto/video_demo
     - require:
       - cmd: freeswitch-build

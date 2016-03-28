@@ -1,4 +1,9 @@
-{% from 'vars.jinja' import server_id with context %}
+{% from 'vars.jinja' import
+  server_id,
+  server_ssl_cert,
+  server_ssl_chain,
+  server_ssl_key
+with context %}
 
 httpd-packages:
   pkg.installed:
@@ -66,21 +71,21 @@ apache-enable-default-ssl-site:
 
 /etc/ssl/certs/cert.pem:
   file.managed:
-    - source: salt://etc/ssl/cert.pem
+    - source: salt://etc/ssl/{{ server_ssl_cert }}
     - user: root
     - group: root
     - mode: 644
 
 /etc/ssl/certs/chain.pem:
   file.managed:
-    - source: salt://etc/ssl/chain.pem
+    - source: salt://etc/ssl/{{ server_ssl_chain }}
     - user: root
     - group: root
     - mode: 644
 
 /etc/ssl/private/key.pem:
   file.managed:
-    - source: salt://etc/ssl/key.pem
+    - source: salt://etc/ssl/{{ server_ssl_key }}
     - user: root
     - group: root
     - mode: 640

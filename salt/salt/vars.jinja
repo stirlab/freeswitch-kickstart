@@ -38,3 +38,7 @@
 {% set freeswitch_ip = salt['pillar.get']('service:freeswitch:ip', salt['network.interfaces']()[eth_num]['inet'][0]['address']) -%}
 {% set freeswitch_default_password = salt['pillar.get']('software:freeswitch:default_password', '9999') -%}
 
+# SSL certificates.
+{% set server_ssl_key = salt['pillar.get']('server:ssl:key', 'key.pem') -%}
+{% set server_ssl_cert = salt['pillar.get']('server:ssl:cert', 'cert.pem') -%}
+{% set server_ssl_chain = salt['pillar.get']('server:ssl:chain', 'chain.pem') -%}
