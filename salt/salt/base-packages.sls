@@ -9,9 +9,9 @@ base-packages:
       - dbus
       - file
       - htop
+      - libpam-systemd
       - logwatch
       - lynx
-      - libpam-systemd
       - man-db
       - mutt
       - patch
