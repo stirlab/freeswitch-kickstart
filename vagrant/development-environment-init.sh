@@ -6,9 +6,9 @@
 
 PORTS_TO_CHECK="9001"
 SSH_PORT="2222"
-SSH_CONFIG_LABEL="freeswitch-dev"
+SSH_CONFIG_LABEL="freeswitch-kickstart"
 MESSAGE_STORE=""
-VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-dev"
+VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-kickstart"
 FREESWITCH_GIT_DIR="${HOME}/git/freeswitch"
 FREESWITCH_GIT_URL="https://freeswitch.org/stash/scm/fs/freeswitch.git"
 FREESWITCH_GIT_BRANCH="master"

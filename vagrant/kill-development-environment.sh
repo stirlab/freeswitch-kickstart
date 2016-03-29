@@ -3,7 +3,7 @@
 # Removes all files associated with the development environment, use with
 # extreme caution!
 
-VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-dev"
+VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-kickstart"
 FREESWITCH_GIT_DIR="${HOME}/git/freeswitch"
 
 SCRIPT_NAME=`basename $0`

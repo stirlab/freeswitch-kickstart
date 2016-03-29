@@ -3,7 +3,7 @@
 # Handles all details of setting up the development virtual server.
 
 VAGRANT_CONFIG_DIR=$1
-VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-dev"
+VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-kickstart"
 FREESWITCH_GIT_DIR="${HOME}/git/freeswitch"
 SALT_DIR="`dirname $VAGRANT_CONFIG_DIR 2> /dev/null`/salt"
 VAGRANT_VM_BOX="bento/debian-8.2"

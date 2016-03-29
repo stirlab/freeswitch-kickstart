@@ -11,7 +11,7 @@
 
 # Install path for the virtual machine. Make sure that the user executing the
 # installation script has permissions to create this directory.
-#VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-dev"
+#VM_INSTALL_DIR="${HOME}/vagrant/freeswitch-kickstart"
 
 # Full path to the Git checkout of the FreeSWITCH repository on the host.
 # If the directory does not already exist, then Git will be used to clone the
@@ -36,7 +36,7 @@
 #SSH_PORT="2222"
 
 # The label for the entry to be placed in .ssh/config.
-#SSH_CONFIG_LABEL="freeswitch-dev"
+#SSH_CONFIG_LABEL="freeswitch-kickstart"
 
 # The minion ID to be used in /etc/salt/minion.
 # Note that this is also used to set the local hostname for accessing the
