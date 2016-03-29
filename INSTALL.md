@@ -11,7 +11,7 @@
  1. Once the script successfully completes the pre-flight checks, it will automatically handle the rest of the installation and setup. Relax, grab a cup of chai, and watch the setup process roll by on screen. :)
  1. If the setup script finds an SSH pubkey in the default location of the host's HOME directory, it will automatically install that pubkey to the VM. The end of the script outputs optional configuration you can add to your .ssh/config file, to enable easy root SSH access to the server.
  1. SSH into the VM, and run ```start-conference.sh```
- 1. Visit <code>https://dev.freeswitch.local:9001</code> in your browser, and you should see the main page for FreeSWTICH's Verto Communicator.
+ 1. Visit <code>https://dev.freeswitch.local:9001/verto-communicator</code> in your browser, and you should see the main page for FreeSWTICH's [Verto Communicator](https://freeswitch.org/confluence/display/FREESWITCH/Verto+Communicator).
  1. Try out a video call! *(the defaults for the advanced settings should work without adjustment)*
  1. The installed virtual machine can be controlled like any other Vagrant VM. See [this Vagrant cheat sheet](http://notes.jerzygangi.com/vagrant-cheat-sheet) for more details.
  1. If for any reason the installation fails, or you just want to completely remove the installed virtual machine, run the <code>vagrant/kill-development-environment.sh</code> script from the command line.
