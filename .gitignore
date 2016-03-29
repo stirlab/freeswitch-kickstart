@@ -7,5 +7,7 @@
 vagrant/settings.sh
 
 # Custom pillar configuration.
+salt/pillar/server/common.sls
 salt/pillar/server/development.sls
+salt/pillar/server/production.sls
 
