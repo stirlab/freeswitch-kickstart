@@ -64,3 +64,8 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
      * The server's SSL private key.
      * The SSL chain file or root certificate authority.
    * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see <code>production.sls.example</code> for the correct approach).
+
+### Caveats
+
+ * The Salt bootstrapping process can take quite awhile, so be patient.
+ * If some of the Salt configuration steps fail, it's most often some kind of transient error (network or server glitch or outage) -- usually running <code>salt-call state.highstate</code> again will rectify the errors.
