@@ -34,7 +34,7 @@ The following directories will probably be of the most interest:
  1. Start with a fresh Debian 8 install
  1. Make sure the hostname of the server is set to the fully qualified domain name wanted for the installation. You can use the hostname command to set it, eg. ```hostname www.example.com```
  1. Load ```production/debian_bootstrap.sh``` to the server, make sure it's executable, and execute it.
- 1. When it completes, follow the instructions below for configuring pillar data and SSL certs.
+ 1. When it completes, follow the instructions below for configuring pillar data and SSL certs *(the bootstrap script installs freeswitch-kickstart at <code>/var/local/git/freeswitch-kickstart</code>)*.
  1. Run ```salt-call state.highstate```
 
 #### Working with remote server
