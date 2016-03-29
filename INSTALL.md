@@ -40,7 +40,7 @@ The following directories will probably be of the most interest:
 
 ##### Working with the remote server
 
- * It's important to note that the default Salt configuration is set up to trigger a rebuild of FreeSWITCH if the configured <code>software:freeswitch:git:revision</code> setting is updated with new commits (this can happen if the setting is pointing to a branch). Since the default setting is <code>master</code>, you are highly encouraged to set this to something stable on your production server! *(like a commit hash or tag, or a stable branch used for production rollouts).
+ * It's important to note that the default Salt configuration is set up to trigger a rebuild of FreeSWITCH if the configured <code>software:freeswitch:git:revision</code> pillar setting is updated with new commits (this can happen if the setting is pointing to a branch). Since the default setting is <code>master</code>, you are highly encouraged to set this to something stable on your production server! *(like a commit hash or tag, or a stable branch used for production rollouts).
  * The following scripts are available to be run on the server:
    * <code>rebuild-conference.sh</code>: If the source code for Verto Communicator is updated, this script can be used to rebuild it.
 
