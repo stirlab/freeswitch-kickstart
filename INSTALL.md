@@ -46,7 +46,7 @@ The following directories will probably be of the most interest:
 ### Configuring pillar data
 
  * In the <code>salt/pillar/server</code> directory, you'll find an example configuration file.
- * Copy the file in the same directory, removing the .example extension. Use the appropriate example based on the installation environment *(development.sls for development/Vagrant installs, production.sls for production installs).
+ * Copy the file in the same directory, removing the .example extension. Use the appropriate example based on the installation environment *(development.sls for development/Vagrant installs, production.sls for production installs)*.
  * Edit the configurations to taste. You can reference <code>salt/salt/vars.jinja</code> to see what variables are available, and the defaults for each.
 
 ### Configuring SSL certificates
