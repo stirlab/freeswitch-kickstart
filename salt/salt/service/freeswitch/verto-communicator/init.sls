@@ -34,6 +34,8 @@ verto-communicator-node-packages:
 npm-bootstrap-verto-communicator:
   npm.bootstrap:
     - name: {{ freeswitch_git_checkout }}/html5/verto/verto_communicator
+    # This effectively freezes the node modules, similar to how bower is below.
+    - unless: test -d {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/node_modules
     - require:
       - npm: verto-communicator-node-packages
 
