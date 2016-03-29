@@ -16,6 +16,7 @@ with context %}
 include:
   - repo.freeswitch
   - repo.freeswitch-debian-unstable
+  - service.httpd
 
 # Set up the dependency line for the Git checkout. This is necessary because on
 # Vagrant installs the checkout is an existing linked folder on the VM.
@@ -86,6 +87,17 @@ freeswitch-build:
     - require:
       - cmd: freeswitch-build
 
+clean-freeswitch-ssl-certs:
+  cmd.run:
+    - name: rm -f agent.pem wss.pem
+    - cwd: /usr/local/freeswitch/certs
+    - require:
+      - file: /usr/local/freeswitch/certs
+    - onchanges:
+      - file: /etc/ssl/certs/cert.pem
+      - file: /etc/ssl/certs/chain.pem
+      - file: /etc/ssl/private/key.pem
+
 # Alternate state name required to avoid 'Recursive requisite found' error.
 Add /usr/local/freeswitch/certs/agent.pem:
   file.managed:
@@ -95,7 +107,7 @@ Add /usr/local/freeswitch/certs/agent.pem:
     - mode: 640
     - require:
       - group: freeswitch-group
-      - file: /usr/local/freeswitch/certs
+      - cmd: clean-freeswitch-ssl-certs
 
 build-agent.pem:
   file.append:
@@ -115,7 +127,7 @@ Add /usr/local/freeswitch/certs/wss.pem:
     - mode: 640
     - require:
       - group: freeswitch-group
-      - file: /usr/local/freeswitch/certs
+      - cmd: clean-freeswitch-ssl-certs
 
 build-wss.pem:
   file.append:
