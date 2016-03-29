@@ -1,0 +1,28 @@
+###############################################################################
+# PROMPT SETTINGS
+###############################################################################
+
+PS1="\u@\H\$\w: "
+PS2=\$
+
+###############################################################################
+# ENVIRONMENT VARIABLES
+###############################################################################
+export TERM=xterm-256color
+export EDITOR=vim
+export CLICOLOR=1
+export LSCOLORS=exfxcxdxbxegedabagacad;
+
+###############################################################################
+# ALIASES
+###############################################################################
+
+# Aliases.
+alias ls="ls -F --color=auto"
+## Specific to FreeSWITCH.
+alias fsdir="cd /usr/local/freeswitch"
+alias fsconf="cd /usr/local/freeswitch/conf"
+alias fsdb="cd /usr/local/freeswitch/db"
+alias fslog="cd /usr/local/freeswitch/log"
+alias fsscr="cd /usr/local/freeswitch/scripts"
+

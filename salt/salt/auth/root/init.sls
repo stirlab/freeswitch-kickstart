@@ -1,4 +1,10 @@
-{% from 'vars.jinja' import server_env, ssh_pubkeys_root, server_encryption_password, freeswitch_ip with context %}
+{% from 'vars.jinja' import
+  server_env,
+  ssh_pubkeys_root,
+  server_encryption_password,
+  freeswitch_ip,
+  user_root_install_bashrc
+with context %}
 
 {% for user, data in ssh_pubkeys_root.iteritems() %}
 sshkey-{{ user }}:
@@ -26,3 +32,11 @@ sshkey-{{ user }}:
     - group: root
     - dir_mode: 755
 
+{% if user_root_install_bashrc %}
+/root/.bashrc:
+  file.managed:
+    - source: salt://auth/root/bashrc
+    - user: root
+    - group: root
+    - mode: 644
+{% endif %}

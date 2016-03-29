@@ -42,3 +42,7 @@
 {% set server_ssl_key = salt['pillar.get']('server:ssl:key', 'key.pem') -%}
 {% set server_ssl_cert = salt['pillar.get']('server:ssl:cert', 'cert.pem') -%}
 {% set server_ssl_chain = salt['pillar.get']('server:ssl:chain', 'chain.pem') -%}
+
+# User customizations.
+# If set to True, a default .bashrc file will be installed for the root user.
+{% set user_root_install_bashrc = salt['pillar.get']('user:root:install_bashrc', True) -%}
