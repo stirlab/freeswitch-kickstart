@@ -16,7 +16,7 @@
  1. The installed virtual machine can be controlled like any other Vagrant VM. See [this Vagrant cheat sheet](http://notes.jerzygangi.com/vagrant-cheat-sheet) for more details.
  1. If for any reason the installation fails, or you just want to completely remove the installed virtual machine, run the <code>vagrant/kill-development-environment.sh</code> script from the command line.
 
-#### Working with the Vagrant FreeSWITCH checkout
+##### Working with the Vagrant FreeSWITCH checkout
 
 The setup script clones a git repository for FreeSWITCH to the host machine, in the directory specified by the <code>FREESWITCH_GIT_DIR</code> setting in <code>settings.sh</code> (<code>${HOME}/git/freeswitch</code> by default). This directory is sync'd with the VM, which allows editing files directly from the checkout. Once the initial setup of the source code repository is done, you have full control over what branch/tag/commit to rebuild FreeSWITCH from *(default is to build from latest master)*.
 
@@ -24,7 +24,7 @@ The following directories will probably be of the most interest:
  * <code>src</code>: The source code for FreeSWITCH.
  * <code>html5/verto/verto_communicator/src</code>: The source code for Verto Communicator.
 
-#### Working with the Vagrant VM
+##### Working with the Vagrant VM
  * The virtual machine can be started, stopped, and restarted from the host using the <code>vagrant/manage-vm.sh</code> script. Run without arguments for usage.
  * The following scripts are available to be run while SSH'd into the VM:
    * <code>start-conference.sh</code>: Starts a development web server for Verto Communicator. The server will watch all files in the Verto Communicator package, and rebuild client-side assets on any changes.
@@ -38,7 +38,7 @@ The following directories will probably be of the most interest:
  1. When it completes, follow the instructions below for configuring pillar data and SSL certs *(the bootstrap script installs freeswitch-kickstart at <code>/var/local/git/freeswitch-kickstart</code>)*.
  1. Run ```salt-call state.highstate```
 
-#### Working with remote server
+##### Working with the remote server
 
  * It's important to note that the default Salt configuration is set up to trigger a rebuild of FreeSWITCH if the configured <code>software:freeswitch:git:revision</code> setting is updated with new commits (this can happen if the setting is pointing to a branch). Since the default setting is <code>master</code>, you are highly encouraged to set this to something stable on your production server! *(like a commit hash or tag, or a stable branch used for production rollouts).
  * The following scripts are available to be run on the server:
