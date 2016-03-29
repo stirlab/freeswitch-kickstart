@@ -70,7 +70,7 @@ verto-dist-build:
 verto-communicator-symlink-html:
   file.symlink:
     - name: /var/www/html/verto-communicator
-    - target: {{ freeswitch_git_checkout }}/html5/verto_communicator/dist
+    - target: {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/dist
     - require:
       - cmd: verto-dist-build
       - pkg: httpd-packages
