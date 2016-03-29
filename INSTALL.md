@@ -55,10 +55,10 @@ The following directories will probably be of the most interest:
 
 You need valid SSL certificates in order for WebRTC to function properly, there are two options, easy and hard:
 
- 1. Easy (recommended for Vagrant installs):
-   * Import <code>salt/salt/etc/ssl/cert.pem</code> as a trusted CA in your browser, and use the default configured <code>dev.freeswitch.local</code> domain. It should be pretty easy to find instructions to import the certificate into all major browsers. Technically, you don't even have to import the certificate, it just avoids brower security warnings.
+ 1. For Vagrant installs:
+   * Do nothing. :) The default certs provided in <code>salt/salt/etc/ssl/</code> work out of the box with the default configured <code>dev.freeswitch.local</code> domain *(the site will show as insecure in the browser, and WebRTC connections work)*.
 
- 1. Hard (recommended for production servers):
+ 1. For remote/production servers:
    * Get some from a SSL certificates from a provider. Note that the common name of the certificate must match the hostname on production servers, and the <code>SALT_MINION_ID</code> setting in <code>settings.sh</code> for Vagrant installs -- this allows Salt to auto configure the setup.
    * Place the following files into the <code>salt/salt/etc/ssl/</code> directory:
      * The server's SSL certificate.
@@ -68,6 +68,7 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
 
 ### Caveats
 
+ * For Vagrant installs, make sure you have the freeswitch-kickstart Git checkout where you want it in your filesystem before you start the build -- this location is stored in the Vagrant configuration for the VM and referenced on boot. If you do move the Git checkout, you'll need to edit the <code>Vagrantfile</code> for the VM and adjust the path as necessary.
  * The Salt bootstrapping process can take quite awhile, so be patient.
  * If some of the Salt configuration steps fail, it's most often some kind of transient error (network or server glitch or outage) -- usually running <code>salt-call state.highstate</code> again will rectify the errors.
  * The project intends to support only the latest development branch installation by default, older branches may also install, but will not be actively maintained.
