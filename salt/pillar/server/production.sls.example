@@ -17,7 +17,12 @@
 #service:
 #  sshd:
 #    port: 5000
-
+#
+#software:
+#  freeswitch:
+#    git:
+#      revision: some-git-commit-hash-or-tag-or-branch
+#
 # Add SSH public keys here for users you wish to have root access to the server.
 #ssh:
 #  pubkeys:
