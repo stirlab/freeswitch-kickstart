@@ -37,6 +37,7 @@ The following directories will probably be of the most interest:
  1. Load ```production/debian_bootstrap.sh``` to the server, make sure it's executable, and execute it.
  1. When it completes, follow the instructions below for configuring pillar data and SSL certs *(the bootstrap script installs freeswitch-kickstart at <code>/var/local/git/freeswitch-kickstart</code>)*.
  1. Run ```salt-call state.highstate```
+ 1. Visit <code>https://[your-hostname]/verto-communicator</code> in your browser to access Verto Communicator.
 
 ##### Working with the remote server
 
