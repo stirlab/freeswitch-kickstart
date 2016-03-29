@@ -1,0 +1,21 @@
+id: ###SALT_MINION_ID###
+
+#master: ###SALT_MASTER###
+
+file_client: local
+state_auto_order: True
+
+# This in place because of
+# https://github.com/saltstack/salt/issues/11900
+providers:
+  service: debian_service
+
+file_roots:
+  base:
+    - /srv/salt/salt
+
+pillar_roots:
+  base:
+    - /srv/salt/pillar
+
+# vi: ft=yaml
