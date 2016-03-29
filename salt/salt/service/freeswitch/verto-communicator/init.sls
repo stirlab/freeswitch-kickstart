@@ -1,5 +1,6 @@
 {% from 'vars.jinja' import
   freeswitch_git_checkout,
+  freeswitch_default_password,
   server_env,
   server_type
 with context %}
@@ -8,6 +9,18 @@ include:
   - service.npm
   - service.freeswitch
   - service.httpd
+
+{{ freeswitch_git_checkout }}/html5/verto/verto_communicator/src/config.json:
+  file.managed:
+    - source: salt://service/freeswitch/verto-communicator/config.json.jinja
+    - template: jinja
+    - context:
+      freeswitch_default_password: {{ freeswitch_default_password }}
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - cmd: freeswitch-build
 
 verto-communicator-node-packages:
   npm.installed:
