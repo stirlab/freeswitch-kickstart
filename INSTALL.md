@@ -32,7 +32,7 @@ The following directories will probably be of the most interest:
    * <code>rebuild-conference.sh</code>: If the source code for Verto Communicator is updated such that its dependencies change, this script can be used to rebuild the dependencies.
 
 ### Remote (usually production) servers.
- 1. Start with a fresh Debian 8 install
+ 1. Start with a fresh [Debian 8.x](https://www.debian.org/releases/jessie) install.
  1. Make sure the hostname of the server is set to the fully qualified domain name wanted for the installation. You can use the hostname command to set it, eg. ```hostname www.example.com```
  1. Load ```production/debian_bootstrap.sh``` to the server, make sure it's executable, and execute it.
  1. When it completes, follow the instructions below for configuring pillar data and SSL certs *(the bootstrap script installs freeswitch-kickstart at <code>/var/local/git/freeswitch-kickstart</code>)*.
@@ -69,4 +69,5 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
 
  * The Salt bootstrapping process can take quite awhile, so be patient.
  * If some of the Salt configuration steps fail, it's most often some kind of transient error (network or server glitch or outage) -- usually running <code>salt-call state.highstate</code> again will rectify the errors.
+ * The project intends to support only the latest development branch installation by default, older branches may also install, but will not be actively maintained.
  * None of the bootstrapping scripts will work on Windows.
