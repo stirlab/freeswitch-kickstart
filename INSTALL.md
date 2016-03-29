@@ -9,7 +9,7 @@
  1. Follow instructions below for configuring pillar data and SSL certs.
  1. From the command line, run <code>./development-environment-init.sh</code>.
  1. Once the script successfully completes the pre-flight checks, it will automatically handle the rest of the installation and setup. Relax, grab a cup of chai, and watch the setup process roll by on screen. :)
- 1. If the setup script finds an SSH pubkey in the default location of the host's HOME directory, it will automatically install that pubkey to the VM. The end of the script outputs optional configuration you can add to your .ssh/config file, to enable easy root SSH access to the server.
+ 1. If the setup script finds an SSH pubkey in the default location of the host's HOME directory, it will automatically install that pubkey to the VM. The end of the script outputs optional configuration you can add to your <code>.ssh/config</code> file, to enable easy root SSH access to the server.
  1. SSH into the VM, and run ```start-conference.sh```
  1. Visit <code>https://dev.freeswitch.local:9001/verto-communicator</code> in your browser, and you should see the main page for FreeSWTICH's [Verto Communicator](https://freeswitch.org/confluence/display/FREESWITCH/Verto+Communicator).
  1. Try out a video call! *(the defaults for the advanced settings should work without adjustment)*
@@ -18,15 +18,16 @@
 
 #### Working with the Vagrant FreeSWITCH checkout
 
-The setup script clones a git repository for FreeSWITCH to the host machine, in the directory specified by the <code>FREESWITCH_GIT_DIR</code> setting in settings.sh (<code>${HOME}/git/freeswitch</code> by default). This directory is sync'd with the VM, which allows editing files directly from the checkout. Once the initial setup of the source code repository is done, you have full control over what branch/tag/commit to rebuild FreeSWITCH from *(default is to build from latest master)*.
+The setup script clones a git repository for FreeSWITCH to the host machine, in the directory specified by the <code>FREESWITCH_GIT_DIR</code> setting in <code>settings.sh</code> (<code>${HOME}/git/freeswitch</code> by default). This directory is sync'd with the VM, which allows editing files directly from the checkout. Once the initial setup of the source code repository is done, you have full control over what branch/tag/commit to rebuild FreeSWITCH from *(default is to build from latest master)*.
 
 The following directories will probably be of the most interest:
+ * <code>src</code>: The source code for FreeSWITCH.
  * <code>html5/verto/verto_communicator/src</code>: The source code for Verto Communicator.
 
 #### Working with the Vagrant VM
  * The virtual machine can be started, stopped, and restarted from the host using the <code>vagrant/manage-vm.sh</code> script. Run without arguments for usage.
  * The following scripts are available to be run while SSH'd into the VM:
-   * <code>start-conference.sh</code>: Starts a development web server for Verto Communicator. The server will watch all files in the Verto Communicator package, and rebuild client-side assets on any changes. *NOTE: At this time, the grunt development server doesn't recognize the installed SSL certificates, so you'll most likely need to trust them manually.*
+   * <code>start-conference.sh</code>: Starts a development web server for Verto Communicator. The server will watch all files in the Verto Communicator package, and rebuild client-side assets on any changes.
    * <code>rebuild-freeswitch.sh</code>: If the source code for FreeSWITCH is updated in your local checkout (most likely by a merge from upstream), this script can be used to rebuild FreeSWITCH.
    * <code>rebuild-conference.sh</code>: If the source code for Verto Communicator is updated such that its dependencies change, this script can be used to rebuild the dependencies.
 
@@ -39,14 +40,14 @@ The following directories will probably be of the most interest:
 
 #### Working with remote server
 
- * It's important to note that the default Salt configuration is set up to trigger a rebuild of FreeSWITCH if the configured software:freeswitch:git:revision setting is updated with new commits (this can happen if the setting is pointing to a branch). Since the default setting is 'master', so you are highly encouraged to set this to something stable on your production server! *(like a commit hash or tag, or a stable branch used for production rollouts).
+ * It's important to note that the default Salt configuration is set up to trigger a rebuild of FreeSWITCH if the configured <code>software:freeswitch:git:revision</code> setting is updated with new commits (this can happen if the setting is pointing to a branch). Since the default setting is <code>master</code>, you are highly encouraged to set this to something stable on your production server! *(like a commit hash or tag, or a stable branch used for production rollouts).
  * The following scripts are available to be run on the server:
    * <code>rebuild-conference.sh</code>: If the source code for Verto Communicator is updated, this script can be used to rebuild it.
 
 ### Configuring pillar data
 
  * In the <code>salt/pillar/server</code> directory, you'll find an example configuration file.
- * Copy the file in the same directory, removing the .example extension. Use the appropriate example based on the installation environment *(development.sls for development/Vagrant installs, production.sls for production installs)*.
+ * Copy the file in the same directory, removing the .example extension. Use the appropriate example based on the installation environment *(<code>development.sls</code> for development/Vagrant installs, <code>production.sls</code> for production installs)*.
  * Edit the configurations to taste. You can reference <code>salt/salt/vars.jinja</code> to see what variables are available, and the defaults for each.
 
 ### Configuring SSL certificates
@@ -57,9 +58,9 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
    * Import <code>salt/salt/etc/ssl/cert.pem</code> as a trusted CA in your browser, and use the default configured <code>dev.freeswitch.local</code> domain. It should be pretty easy to find instructions to import the certificate into all major browsers. Technically, you don't even have to import the certificate, it just avoids brower security warnings.
 
  1. Hard (recommended for production servers):
-   * Get some from a SSL certificates from a provider. Note that the common name of the certificate must match the hostname on production servers, and the <code>SALT_MINION_ID</code> setting in settings.sh for Vagrant installs -- this allows Salt to auto configure the setup.
+   * Get some from a SSL certificates from a provider. Note that the common name of the certificate must match the hostname on production servers, and the <code>SALT_MINION_ID</code> setting in <code>settings.sh</code> for Vagrant installs -- this allows Salt to auto configure the setup.
    * Place the following files into the <code>salt/salt/etc/ssl/</code> directory:
      * The server's SSL certificate.
      * The server's SSL private key.
      * The SSL chain file or root certificate authority.
-   * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see production.sls.example for the correct approach).
+   * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see <code>production.sls.example</code> for the correct approach).
