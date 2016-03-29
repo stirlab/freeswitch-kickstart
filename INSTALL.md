@@ -64,7 +64,7 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
      * The server's SSL certificate.
      * The server's SSL private key.
      * The SSL chain file or root certificate authority.
-   * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see <code>production.sls.example</code> for the correct approach).
+   * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see <code>production.sls.example</code> for the correct approach)*.
 
 ### Caveats
 
