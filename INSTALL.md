@@ -69,3 +69,4 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
 
  * The Salt bootstrapping process can take quite awhile, so be patient.
  * If some of the Salt configuration steps fail, it's most often some kind of transient error (network or server glitch or outage) -- usually running <code>salt-call state.highstate</code> again will rectify the errors.
+ * None of the bootstrapping scripts will work on Windows.
