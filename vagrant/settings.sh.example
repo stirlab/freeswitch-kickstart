@@ -39,6 +39,8 @@
 #SSH_CONFIG_LABEL="freeswitch-dev"
 
 # The minion ID to be used in /etc/salt/minion.
+# Note that this is also used to set the local hostname for accessing the
+# web-based features.
 #SALT_MINION_ID="dev.freeswitch.local"
 
 # If this is set to yes, then the vagrant-hostsupdater will be installed to
