@@ -1,0 +1,32 @@
+# Example pillar file for a build of a production server.
+#
+# Defaults found in salt/salt/vars.jinja, and can be overridden here.
+#
+# For more details on how to write pillar files, see:
+# http://docs.saltstack.com/en/latest/topics/pillar
+
+
+# Example common configuration.
+#
+#server:
+#  ssl:
+#    key: www.example.com.key
+#    cert: www.example.com.crt
+#    chain: certficate-authority.crt
+#
+#service:
+#  sshd:
+#    port: 5000
+
+# Add SSH public keys here for users you wish to have root access to the server.
+#ssh:
+#  pubkeys:
+#    root:
+#      foo@example.com:
+#        key: somesshpubkey
+#        # For details on this setting, see
+#        # http://docs.saltstack.com/en/latest/ref/states/all/salt.states.ssh_auth.html#salt.states.ssh_auth.present
+#        # Default is ssh-rsa.
+#        enc: ssh-rsa
+#      bar@example.com:
+#        key: somesshpubkey

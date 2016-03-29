@@ -1,0 +1,14 @@
+# Pillar configuration placed here will be included across all server
+# environments. Care must be taken not to provide duplicate values between
+# the common configuration and the environment-specific configuration. For
+# more details on how to write pillar files and avoid conflicts, see:
+# http://docs.saltstack.com/en/latest/topics/pillar
+#
+# Defaults found in salt/salt/vars.jinja, and can be overridden here.
+
+# Example common configuration:
+#
+#software:
+#  freeswitch:
+#    default_password: 5555
+
