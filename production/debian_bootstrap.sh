@@ -7,6 +7,7 @@ SALT_GIT_TAG="v2015.8.8"
 
 HOSTNAME=`hostname`
 
+apt-get update
 apt-get -y install git
 mkdir -p /var/local/git
 cd /var/local/git && git clone https://github.com/thehunmonkgroup/${PROJECT_NAME}.git
