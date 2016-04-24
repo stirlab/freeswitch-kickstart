@@ -4,6 +4,7 @@
   freeswitch_git_revision,
   freeswitch_git_url,
   freeswitch_ip,
+  freeswitch_verto_external_rtp_ip,
   server_encryption_password,
   server_env,
   server_id,
@@ -245,6 +246,17 @@ build-wss.pem:
     - mode: 644
     - require:
       - cmd: freeswitch-build
+
+{% if freeswitch_verto_external_rtp_ip %}
+/usr/local/freeswitch/conf/autoload_configs/verto.conf.xml:
+  file.line:
+    - mode: replace
+    - content: '<param name="ext-rtp-ip" value="{{ freeswitch_verto_external_rtp_ip }}"/>'
+    - match: '.*<param.+ext-rtp-ip.+>'
+    - indent: True
+    - require:
+      - cmd: freeswitch-build
+{% endif %}
 
 symlink-fs-cli-to-path:
   file.symlink:

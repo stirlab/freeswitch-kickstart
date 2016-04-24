@@ -36,6 +36,10 @@
 {% set freeswitch_wss_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:wss', '7443') -%}
 {% set eth_num = server_env == 'development' and 'eth1' or 'eth0' %}
 {% set freeswitch_ip = salt['pillar.get']('service:freeswitch:ip', salt['network.interfaces']()[eth_num]['inet'][0]['address']) -%}
+# In some cases the external RTP IP may not be the server's local IPv4 address,
+# this setting can be used to specify the correct address. Default is for the
+# setting to match the local IPv4 address.
+{% set freeswitch_verto_external_rtp_ip = salt['pillar.get']('service:freeswitch:verto:external_rtp_ip', freeswitch_ip) -%}
 {% set freeswitch_default_password = salt['pillar.get']('software:freeswitch:default_password', '9999') -%}
 
 # SSL certificates.
