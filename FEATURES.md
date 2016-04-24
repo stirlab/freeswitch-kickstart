@@ -12,6 +12,7 @@ Some features are only activated in either the development or production environ
    * Check out FreeSWITCH code base
    * Compile
    * Install vanilla configs
+   * Install 36xx videoconference extensions with support for moderator access
    * Configure IP address correctly based on environment
    * Set default password (both in FreeSWITCH config and Verto Communicator config)
    * Install ```fs``` executable, handy shortcut for logging into FreeSWITCH CLI

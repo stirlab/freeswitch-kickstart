@@ -66,6 +66,10 @@ You need valid SSL certificates in order for WebRTC to function properly, there 
      * The SSL chain file or root certificate authority.
    * In the pillar configuration, set the names of each file you installed in the <code>server:ssl</code> section *(see <code>production.sls.example</code> for the correct approach)*.
 
+# Dialing into a videoconference as a moderator
+
+Extensions 3600-3699 have been added to allow moderator access to the videoconference. Simply log in using any default user from 1000-1007 with the default password, then dial into any of the 3600-3699 extensions to become a moderator.
+
 ### Caveats
 
  * For Vagrant installs, make sure you have the freeswitch-kickstart Git checkout where you want it in your filesystem before you start the build -- this location is stored in the Vagrant configuration for the VM and referenced on boot. If you do move the Git checkout, you'll need to edit the <code>Vagrantfile</code> for the VM and adjust the path as necessary.

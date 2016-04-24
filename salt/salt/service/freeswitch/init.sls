@@ -258,6 +258,15 @@ build-wss.pem:
       - cmd: freeswitch-build
 {% endif %}
 
+/usr/local/freeswitch/conf/dialplan/default/0000-video-conference-with-moderator.xml:
+  file.managed:
+    - source: salt://service/freeswitch/conf/0000-video-conference-with-moderator.xml
+    - user: root
+    - group: root
+    - mode: 644
+    - require:
+      - cmd: freeswitch-build
+
 symlink-fs-cli-to-path:
   file.symlink:
     - name: /usr/local/bin/fs_cli
@@ -309,8 +318,10 @@ freeswitch-service:
       - file: build-agent.pem
       - file: build-wss.pem
       - file: /usr/local/freeswitch/certs/cafile.pem
+      - file: /usr/local/freeswitch/conf/autoload_configs/verto.conf.xml
       - file: /usr/local/freeswitch/conf/custom_vars_pre.xml
       - file: /usr/local/freeswitch/conf/custom_vars_post.xml
+      - file: /usr/local/freeswitch/conf/dialplan/default/0000-video-conference-with-moderator.xml
       - file: /usr/local/freeswitch/conf/freeswitch.xml
       - cmd: freeswitch-build
 

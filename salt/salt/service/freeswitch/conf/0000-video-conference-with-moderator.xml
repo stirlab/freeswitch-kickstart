@@ -1,0 +1,14 @@
+<include>
+  <!-- STEREO 48kHz conferences / Video MCU -->
+  <extension name="cdquality_conferences">
+    <condition field="destination_number" expression="^(36\d{2})$">
+      <action application="info"/>
+      <action application="answer"/>
+      <!-- Users 1000 - 1007 get moderator access. -->
+      <condition field="${user_name}" expression="^100[0-7]$">
+        <action application="conference" data="$1-${domain_name}@video-mcu-stereo++flags{moderator}"/>
+        <anti-action application="conference" data="$1-${domain_name}@video-mcu-stereo"/>
+      </condition>
+    </condition>
+  </extension>
+</include>
