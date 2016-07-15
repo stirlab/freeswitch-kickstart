@@ -1,4 +1,5 @@
 id: ###SALT_MINION_ID###
+log_level: info
 file_client: local
 state_auto_order: True
 

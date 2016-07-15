@@ -1,4 +1,5 @@
 id: ###SALT_MINION_ID###
+log_level: info
 
 #master: ###SALT_MASTER###
 
