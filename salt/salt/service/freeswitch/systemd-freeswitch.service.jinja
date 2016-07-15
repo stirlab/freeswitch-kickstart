@@ -8,18 +8,17 @@ After=syslog.target network.target local-fs.target
 ; service
 Type=forking
 PIDFile=/usr/local/freeswitch/run/freeswitch.pid
-PermissionsStartOnly=true
-ExecStart=/usr/local/freeswitch/bin/freeswitch -ncwait -nonat -core
+ExecStart=/usr/local/freeswitch/bin/freeswitch -u freeswitch -g freeswitch -ncwait -nonat -core
 TimeoutSec=45s
 Restart=always
 ; exec
 WorkingDirectory=/usr/local/freeswitch/log
-User=freeswitch
-Group=freeswitch
+User=root
+Group=daemon
 LimitCORE=infinity
 LimitNOFILE=100000
 LimitNPROC=60000
-;LimitSTACK=240
+LimitSTACK=250000
 LimitRTPRIO=infinity
 LimitRTTIME=7000000
 IOSchedulingClass=realtime
