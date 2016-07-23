@@ -1,5 +1,6 @@
 {% from 'vars.jinja' import
   server_id,
+  server_env,
   server_ssl_cert,
   server_ssl_chain,
   server_ssl_key
@@ -95,6 +96,7 @@ apache-enable-default-ssl-site:
     - template: jinja
     - context:
       server_id: {{ server_id }}
+      server_env: {{ server_env }}
     - source: salt://service/httpd/htaccess.jinja
     - user: root
     - group: www-data
