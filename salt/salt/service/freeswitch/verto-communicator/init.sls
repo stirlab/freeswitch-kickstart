@@ -27,6 +27,7 @@ verto-communicator-node-packages:
     - pkgs:
       - bower
       - grunt
+      - grunt-cli
     - require:
       - pkg: npm-package
 
