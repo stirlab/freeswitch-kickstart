@@ -25,7 +25,7 @@
 #FREESWITCH_GIT_BRANCH="master"
 
 # Box name to use for the Vagrantfile, config.vm.box setting.
-#VAGRANT_VM_BOX="bento/debian-8.4"
+#VAGRANT_VM_BOX="bento/debian-8.5"
 
 # Directory where the salt and pillar file roots are located. This is auto
 # configured by the deployement script, so unless you're doing something
