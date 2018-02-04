@@ -42,6 +42,11 @@
 {% set freeswitch_verto_external_rtp_ip = salt['pillar.get']('service:freeswitch:verto:external_rtp_ip', freeswitch_ip) -%}
 {% set freeswitch_default_password = salt['pillar.get']('software:freeswitch:default_password', '9999') -%}
 
+#nvm
+{%- set nvm_install_path = salt['pillar.get']('software:nvm:install_path', '/usr/local/nvm') -%}
+{%- set nvm_node_versions = salt['pillar.get']('software:nvm:node:versions', ['v8.9.4']) -%}
+{%- set nvm_revision = salt['pillar.get']('software:nvm:revision', 'v0.33.8') -%}
+
 # SSL certificates.
 {% set server_ssl_key = salt['pillar.get']('server:ssl:key', 'key.pem') -%}
 {% set server_ssl_cert = salt['pillar.get']('server:ssl:cert', 'cert.pem') -%}

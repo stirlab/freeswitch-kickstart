@@ -12,6 +12,7 @@ base:
     - repo
     - misc
     - software.git
+    - software.nvm
     - software.misc
     - service.salt-minion
     - service.ntp
