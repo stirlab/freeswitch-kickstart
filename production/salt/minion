@@ -1,5 +1,6 @@
 id: ###SALT_MINION_ID###
 log_level: info
+state_verbose: False
 
 #master: ###SALT_MASTER###
 
