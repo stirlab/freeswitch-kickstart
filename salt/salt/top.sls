@@ -13,6 +13,7 @@ base:
     - misc
     - software.git
     - software.nvm
+    - software.npm
     - software.misc
     - service.salt-minion
     - service.ntp
