@@ -22,13 +22,13 @@ httpd-packages:
       - pkg: httpd-packages
 
 apache-enabled-ssl-module:
-  apache_module.enable:
+  apache_module.enabled:
     - name: ssl
     - require:
       - pkg: httpd-packages
 
 apache-enabled-rewrite-module:
-  apache_module.enable:
+  apache_module.enabled:
     - name: rewrite
     - require:
       - pkg: httpd-packages
