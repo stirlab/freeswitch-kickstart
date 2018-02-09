@@ -28,7 +28,6 @@ verto-communicator-node-packages:
     - pkgs:
       - bower
       - grunt
-      - grunt-cli
     - require:
 {% for version in nvm_node_versions %}
       - cmd: nvm-install-{{ version }}
