@@ -43,7 +43,7 @@ npm-bootstrap-verto-communicator:
 
 bower-bootstrap-verto-communicator:
   cmd.run:
-    - name: /usr/local/bin/bower --allow-root --config.interactive=false install -F
+    - name: bower --allow-root --config.interactive=false install -F
     - cwd: {{ freeswitch_git_checkout }}/html5/verto/verto_communicator
     - unless: test -d {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/bower_components
     - use_vt: True
@@ -77,7 +77,7 @@ bower-bootstrap-verto-communicator:
 {% else -%}
 verto-dist-build:
   cmd.run:
-    - name: /usr/local/bin/grunt build
+    - name: grunt build
     - cwd: {{ freeswitch_git_checkout }}/html5/verto/verto_communicator
     - unless: test -d {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/dist
     - use_vt: True
