@@ -3,14 +3,14 @@
 # Bootstraps the repository and installs Salt.
 
 PROJECT_NAME="freeswitch-kickstart"
-SALT_GIT_TAG="v2017.7.3"
+SALT_GIT_TAG="v2017.7.6"
 
 HOSTNAME=`hostname`
 
 apt-get update
 apt-get -y install git
 mkdir -p /var/local/git
-cd /var/local/git && git clone https://github.com/thehunmonkgroup/${PROJECT_NAME}.git
+cd /var/local/git && git clone https://github.com/stirlab/${PROJECT_NAME}.git
 ln -s /var/local/git/${PROJECT_NAME}/salt /srv/salt
 cd && wget -O install_salt.sh https://bootstrap.saltstack.com && sh install_salt.sh -X -d git ${SALT_GIT_TAG} && systemctl disable salt-minion.service && systemctl stop salt-minion.service
 rm install_salt.sh
