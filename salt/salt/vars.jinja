@@ -34,7 +34,7 @@
 {% set freeswitch_git_checkout = salt['pillar.get']('software:freeswitch:git:checkout', '/usr/local/src/freeswitch') -%}
 {% set freeswitch_ws_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:ws', '5066') -%}
 {% set freeswitch_wss_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:wss', '7443') -%}
-{% set eth_num = server_env == 'development' and 'eth1' or 'eth0' %}
+{% set eth_num = salt['pillar.get']('server:network:device:public') or (server_env == 'development' and 'eth1' or 'eth0') %}
 {% set freeswitch_ip = salt['pillar.get']('service:freeswitch:ip', salt['network.interfaces']()[eth_num]['inet'][0]['address']) -%}
 # In some cases the external RTP IP may not be the server's local IPv4 address,
 # this setting can be used to specify the correct address. Default is for the
