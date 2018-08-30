@@ -250,9 +250,9 @@ build-wss.pem:
 /usr/local/freeswitch/conf/autoload_configs/conference.conf.xml-caller-control-vmute:
   file.line:
     - name: /usr/local/freeswitch/conf/autoload_configs/conference.conf.xml
-    - mode: ensure
-    - content: '<control action="mute" digits="0"/><control action="vmute" digits="*0"/>'
-    - before: '<control action="deaf mute" digits="*"/>'
+    - mode: replace
+    - content: '<control action="vmute" digits="*0"/>'
+    - match: '<control action="deaf mute" digits="*"/>'
     - indent: True
     - require:
       - cmd: freeswitch-build
