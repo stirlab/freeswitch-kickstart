@@ -9,7 +9,7 @@ with context %}
 include:
   - software.nvm
   - service.freeswitch
-  - service.httpd
+  - service.nginx
 
 {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/src/config.json:
   file.managed:
@@ -90,6 +90,6 @@ verto-communicator-symlink-html:
     - target: {{ freeswitch_git_checkout }}/html5/verto/verto_communicator/dist
     - require:
       - cmd: verto-dist-build
-      - pkg: httpd-packages
+      - pkg: nginx-package
 {% endif -%}
 

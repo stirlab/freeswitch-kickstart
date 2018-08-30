@@ -17,7 +17,7 @@ with context %}
 include:
   - repo.freeswitch
   - repo.freeswitch-debian-unstable
-  - service.httpd
+  - misc.ssl
 
 # Set up the dependency line for the Git checkout. This is necessary because on
 # Vagrant installs the checkout is an existing linked folder on the VM.

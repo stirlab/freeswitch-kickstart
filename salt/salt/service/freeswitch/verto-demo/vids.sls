@@ -1,5 +1,5 @@
 include:
-  - service.httpd
+  - service.nginx
 
 demo-vid-archive:
   archive.extracted:
@@ -10,6 +10,8 @@ demo-vid-archive:
     - user: root
     - group: root
     - if_missing: /var/www/html/vid/
+    - require:
+      - pkg: nginx-package
 
 demo-symlink-vid-html:
   file.symlink:
@@ -17,5 +19,4 @@ demo-symlink-vid-html:
     - target: /var/www/html/vid
     - require:
       - archive: demo-vid-archive
-      - pkg: httpd-packages
 

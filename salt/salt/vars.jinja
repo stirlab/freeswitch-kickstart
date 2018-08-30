@@ -16,6 +16,7 @@
 # Network.
 # The server ID, set by the salt minion config file - must be edited there.
 {% set server_id = grains['id'] -%}
+{% set www_domain = salt['pillar.get']('server:www:domain', server_id) -%}
 
 # SSH.
 # Port to run the SSH daemon on.
@@ -41,6 +42,12 @@
 # setting to match the local IPv4 address.
 {% set freeswitch_verto_external_rtp_ip = salt['pillar.get']('service:freeswitch:verto:external_rtp_ip', freeswitch_ip) -%}
 {% set freeswitch_default_password = salt['pillar.get']('software:freeswitch:default_password', '9999') -%}
+
+# Nginx.
+# HTTP port to listen on.
+{% set nginx_http_port = salt['pillar.get']('service:nginx:http_port', '80') -%}
+# HTTPS port to listen on.
+{% set nginx_https_port = salt['pillar.get']('service:nginx:https_port', '443') -%}
 
 #nvm
 {%- set nvm_install_path = salt['pillar.get']('software:nvm:install_path', '/usr/local/nvm') -%}

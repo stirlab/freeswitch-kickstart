@@ -2,7 +2,7 @@
 
 include:
   - service.freeswitch
-  - service.httpd
+  - service.nginx
 
 verto-demo-symlink-html:
   file.symlink:
@@ -10,7 +10,7 @@ verto-demo-symlink-html:
     - target: {{ freeswitch_git_checkout }}/html5/verto/demo
     - require:
       - cmd: freeswitch-build
-      - pkg: httpd-packages
+      - pkg: nginx-package
 
 verto-video-demo-symlink-html:
   file.symlink:
@@ -18,7 +18,7 @@ verto-video-demo-symlink-html:
     - target: {{ freeswitch_git_checkout }}/html5/verto/video_demo
     - require:
       - cmd: freeswitch-build
-      - pkg: httpd-packages
+      - pkg: nginx-package
 
 verto-video-demo-symlink-dialplan:
   file.symlink:
@@ -33,7 +33,7 @@ verto-video-demo-symlink-dialplan:
     - group: root
     - dir_mode: 755
     - require:
-      - pkg: httpd-packages
+      - pkg: nginx-package
 
 # TODO: Remove this?
 #/usr/local/freeswitch/conf/dialplan/default/0000_dp.xml:

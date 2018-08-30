@@ -18,7 +18,7 @@ base:
     - service.salt-minion
     - service.ntp
     - service.postfix
-    - service.httpd
+    - service.nginx
     - service.freeswitch
     - service.freeswitch.verto-demo
     - service.freeswitch.verto-communicator
