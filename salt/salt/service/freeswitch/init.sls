@@ -247,6 +247,16 @@ build-wss.pem:
     - require:
       - cmd: freeswitch-build
 
+/usr/local/freeswitch/conf/autoload_configs/conference.conf.xml-caller-control-vmute:
+  file.line:
+    - name: /usr/local/freeswitch/conf/autoload_configs/conference.conf.xml
+    - mode: ensure
+    - content: '<control action="mute" digits="0"/><control action="vmute" digits="*0"/>'
+    - before: '<control action="deaf mute" digits="*"/>'
+    - indent: True
+    - require:
+      - cmd: freeswitch-build
+
 {% if freeswitch_verto_external_rtp_ip %}
 /usr/local/freeswitch/conf/autoload_configs/verto.conf.xml:
   file.line:
@@ -318,6 +328,7 @@ freeswitch-service:
       - file: build-agent.pem
       - file: build-wss.pem
       - file: /usr/local/freeswitch/certs/cafile.pem
+      - file: /usr/local/freeswitch/conf/autoload_configs/conference.conf.xml-caller-control-vmute
       - file: /usr/local/freeswitch/conf/autoload_configs/verto.conf.xml
       - file: /usr/local/freeswitch/conf/custom_vars_pre.xml
       - file: /usr/local/freeswitch/conf/custom_vars_post.xml
