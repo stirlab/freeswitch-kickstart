@@ -1,2 +1,3 @@
 include:
+  - .nodesource
   - .freeswitch

@@ -49,11 +49,6 @@
 # HTTPS port to listen on.
 {% set nginx_https_port = salt['pillar.get']('service:nginx:https_port', '443') -%}
 
-#nvm
-{%- set nvm_install_path = salt['pillar.get']('software:nvm:install_path', '/usr/local/nvm') -%}
-{%- set nvm_node_versions = salt['pillar.get']('software:nvm:node:versions', ['v8.9.4']) -%}
-{%- set nvm_revision = salt['pillar.get']('software:nvm:revision', 'v0.33.11') -%}
-
 # SSL certificates.
 {% set server_ssl_key = salt['pillar.get']('server:ssl:key', 'key.pem') -%}
 {% set server_ssl_cert = salt['pillar.get']('server:ssl:cert', 'cert.pem') -%}

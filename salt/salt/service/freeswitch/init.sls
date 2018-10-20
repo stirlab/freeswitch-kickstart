@@ -16,7 +16,6 @@ with context %}
 
 include:
   - repo.freeswitch
-  - repo.freeswitch-debian-unstable
   - misc.ssl
 
 # Set up the dependency line for the Git checkout. This is necessary because on
@@ -39,18 +38,20 @@ freeswitch-user:
     - require:
       - group: freeswitch-group
 
-freeswitch-video-deps-package:
-  pkg.installed:
-    - name: freeswitch-video-deps-most
-    - refresh: True
+freeswitch-deps-packages:
+  cmd.run:
+    - name: /usr/bin/apt-get -y build-dep freeswitch
+    # TODO: Not super elegant, maybe a better test?
+    - unless: /usr/bin/dpkg -l libbroadvoice1
+    - require:
+      - pkgrepo: freeswitch-repo
+      - pkgrepo: freeswitch-src-repo
 
 {{ freeswitch_git_checkout }}:
   file.directory:
     - user: root
     - group: root
     - dir_mode: 755
-    - require:
-      - pkg: freeswitch-video-deps-package
 
 {% if server_type != 'vagrant' -%}
 freeswitch-git-checkout:
@@ -60,8 +61,6 @@ freeswitch-git-checkout:
     - target: {{ freeswitch_git_checkout }}
     # Necessary to clear any patches out before updating the repository.
     - force_checkout : True
-    - require:
-      - pkg: freeswitch-video-deps-package
 {% endif -%}
 
 freeswitch-build:
@@ -72,6 +71,7 @@ freeswitch-build:
     - require:
       - group: freeswitch-group
       - user: freeswitch-user
+      - cmd: freeswitch-deps-packages
 {% if server_type == 'vagrant' %}
       -  {{ git_checkout_dependency }}
     - unless: test -d /usr/local/freeswitch
@@ -366,9 +366,3 @@ freeswitch-service:
     - require:
       - cmd: freeswitch-build
 {% endif -%}
-
-extend:
-  freeswitch-repo:
-    pkgrepo.managed:
-      - require_in:
-        - pkg: freeswitch-video-deps-package

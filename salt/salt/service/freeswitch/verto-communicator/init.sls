@@ -1,13 +1,12 @@
 {% from 'vars.jinja' import
   freeswitch_git_checkout,
   freeswitch_default_password,
-  nvm_node_versions,
   server_env,
   server_type
 with context %}
 
 include:
-  - software.nvm
+  - software.nodejs
   - service.freeswitch
   - service.nginx
 
@@ -29,9 +28,7 @@ verto-communicator-node-packages:
       - bower
       - grunt
     - require:
-{% for version in nvm_node_versions %}
-      - cmd: nvm-install-{{ version }}
-{% endfor %}
+      - pkg: nodejs-packages
 
 npm-bootstrap-verto-communicator:
   npm.bootstrap:

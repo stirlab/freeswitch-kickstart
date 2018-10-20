@@ -7,11 +7,6 @@ state_verbose: False
 file_client: local
 state_auto_order: True
 
-# This in place because of
-# https://github.com/saltstack/salt/issues/11900
-providers:
-  service: debian_service
-
 file_roots:
   base:
     - /srv/salt/salt
