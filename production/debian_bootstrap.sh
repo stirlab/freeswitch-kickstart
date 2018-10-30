@@ -5,7 +5,7 @@
 PROJECT_NAME="freeswitch-kickstart"
 SALT_GIT_TAG="v2018.3.3"
 
-HOSTNAME=`hostname`
+HOSTNAME=`hostname -f`
 
 apt-get update
 apt-get -y install git
