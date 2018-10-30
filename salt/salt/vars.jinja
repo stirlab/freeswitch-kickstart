@@ -17,6 +17,15 @@
 # The server ID, set by the salt minion config file - must be edited there.
 {% set server_id = grains['id'] -%}
 {% set www_domain = salt['pillar.get']('server:www:domain', server_id) -%}
+# Best guess on some network attributes.
+{% set calculated_network_attrs = {
+  'public_device': 'eth0',
+} %}
+{% for device_name, data in salt['network.interfaces']().iteritems() %}
+  {% if device_name != 'lo' and data['up'] %}
+    {% do calculated_network_attrs.update({'public_device': device_name}) %}
+  {% endif %}
+{% endfor %}
 
 # SSH.
 # Port to run the SSH daemon on.
@@ -35,7 +44,7 @@
 {% set freeswitch_git_checkout = salt['pillar.get']('software:freeswitch:git:checkout', '/usr/local/src/freeswitch') -%}
 {% set freeswitch_ws_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:ws', '5066') -%}
 {% set freeswitch_wss_internal_port = salt['pillar.get']('service:freeswitch:sip:internal:wss', '7443') -%}
-{% set eth_num = salt['pillar.get']('server:network:device:public') or (server_env == 'development' and 'eth1' or 'eth0') %}
+{% set eth_num = salt['pillar.get']('server:network:device:public') or (server_env == 'development' and 'eth1' or calculated_network_attrs['public_device']) %}
 {% set freeswitch_ip = salt['pillar.get']('service:freeswitch:ip', salt['network.interfaces']()[eth_num]['inet'][0]['address']) -%}
 # In some cases the external RTP IP may not be the server's local IPv4 address,
 # this setting can be used to specify the correct address. Default is for the
