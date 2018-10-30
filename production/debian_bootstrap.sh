@@ -3,7 +3,7 @@
 # Bootstraps the repository and installs Salt.
 
 PROJECT_NAME="freeswitch-kickstart"
-SALT_GIT_TAG="v2017.7.6"
+SALT_GIT_TAG="v2018.3.3"
 
 HOSTNAME=`hostname`
 
