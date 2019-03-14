@@ -6,8 +6,10 @@
 # Custom Vagrant settings.
 vagrant/settings.sh
 
+# Custom dotfiles for root.
+salt/salt/auth/root/dotfiles.sls
+
 # Custom pillar configuration.
 salt/pillar/server/common.sls
 salt/pillar/server/development.sls
 salt/pillar/server/production.sls
-
